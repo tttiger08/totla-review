@@ -1,0 +1,24 @@
+<!-- web worker 是运行在后台的 JavaScript，独立于其他脚本，不会影响页面的性能。您可以继续做任何愿意做的事情：点击、选取内容等等，而此时 web worker 在后台运行。 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="result"></div>
+  <script>
+    if (typeof (w) == "undefined") {
+      w = new Worker("./demo_workers.js");
+    }
+    // 向 web worker 添加一个 "onmessage" 事件监听器： 当 web worker 传递消息时，会执行事件监听器中的代码。event.data 中存有来自 event.data 的数据。
+    w.onmessage = function (event) {
+      document.getElementById("result").innerHTML = event.data;
+    };
+  </script>
+</body>
+
+</html>
